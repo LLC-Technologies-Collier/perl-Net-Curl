@@ -68,7 +68,9 @@ if ( $curl{libs} and $curl{version} ) {
 
 	print "Found libcurl version $curl{version}\n";
 
-	(my $ver_to_cmp = $curl{version}) =~ s/[^\d]*$//;
+	(my $ver_to_cmp = $curl{version}) =~ s/[^\d.].*//;
+	warn "Debug: ver_to_cmp = $ver_to_cmp\n";
+	warn "Debug: eval string = v$ver_to_cmp lt v$minimum_libcurl_ver\n";
 	if ( eval "v$ver_to_cmp lt v$minimum_libcurl_ver" or $@ ) {
 		print STDERR
 			"Your currently installed libcurl version - $curl{version} - is too old.\n".
